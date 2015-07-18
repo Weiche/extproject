@@ -2,7 +2,7 @@
  * SYSTEM_ControlFlag.h
  *
  *  Created on: 2015”N7ŒŽ17“ú
- *      Author: Administrator
+ *      Author: Che Wei
  */
 
 #ifndef SYSTEM_CONTROLFLAG_H_

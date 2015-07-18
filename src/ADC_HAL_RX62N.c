@@ -23,6 +23,7 @@ void ADC_HALInit(void) {
 
 void ADC_HALSoftStart(void) {
 	AD0.ADCSR.BIT.ADST = 1;
+
 }
 
 int32_t ADC_HALGetRaw(void) {

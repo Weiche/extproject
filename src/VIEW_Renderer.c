@@ -18,7 +18,7 @@ static void VIEW_RenderTime(const VIEW_ascii_t *p) {
 	LCD_DriverBufferWrite( VIEW_OFFSET_TIMER + 6, p->sec100[0]);
 	LCD_DriverBufferWrite( VIEW_OFFSET_TIMER + 7, p->sec100[1]);
 }
-
+#if (USE_ADCBAR_EXT==0)
 static void VIEW_RenderADCValue(const VIEW_ascii_t *p) {
 	ASSERT(p != 0);
 	/* render adc value */
@@ -28,8 +28,8 @@ static void VIEW_RenderADCValue(const VIEW_ascii_t *p) {
 	LCD_DriverBufferWrite( VIEW_OFFSET_ADCVal + 3, p->adc[2]);
 	LCD_DriverBufferWrite( VIEW_OFFSET_ADCVal + 4, 'V');
 }
-
-static void VIEW_RenderADCBarExt(const VIEW_ascii_t *p) {
+#else
+static void VIEW_RenderADCBar(const VIEW_ascii_t *p) {
 	static const uint8_t table[] = { 0x20, 0x01, 0x02, 0x03, 0x04, 0xFF };
 	int32_t i, adc, adc_disp;
 
@@ -56,6 +56,7 @@ static void VIEW_RenderADCBarExt(const VIEW_ascii_t *p) {
 		i++;
 	}
 }
+#endif
 
 static void VIEW_RenderL(void) {
 	LCD_DriverBufferWrite( VIEW_OFFSET_ADCVal + 0, 'L');
@@ -94,6 +95,7 @@ void VIEW_Render(view_t view_code, const void *p) {
 		break;
 
 	}
+	(void)pVIEW;
 }
 
 void VIEW_Init(void) {

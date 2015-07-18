@@ -42,7 +42,7 @@ void TIMER_DriverCount( TIMER_t *ptimer ){
 			ptimer->sec_100 = 0;
 			if( ptimer->sec >= 60 ){
 				ptimer->sec = 0;
-				if( ptimer->min < 99 ){
+				if( ptimer->min < TIMER_MAX_MINUTE ){
 					ptimer->min ++;
 				}
 			}

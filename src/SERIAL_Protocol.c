@@ -22,18 +22,22 @@
 #include <stdint.h>
 #include "SERIAL_Driver.h"
 #include "SERIAL_Protocol.h"
-void	SERIAL_ProtocolInit(void){
+void	SERIAL_ProtocolInit(SERIAL_Protocol_t *this){
 
 }
 void	SERIAL_ProtocolReset(void){
 
 }
+
+#ifndef SERIAL_ProtocolGetConnectionState
 int32_t SERIAL_ProtocolGetConnectionState(void){
 	return SERIAL_STATE_CONNONLINE;
 }
 int32_t SERIAL_ProtocolGetPacketState(void){
 	return SERIAL_STATE_CONNOFFLINE;
 }
+#endif
+
 int32_t SERIAL_ProtocolRecv(data_t *buff){
 	return 0;
 }/* return receive packet number */

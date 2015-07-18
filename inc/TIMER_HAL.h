@@ -9,10 +9,11 @@
 #define TIMER_HAL_H_
 
 /* Include					*/
+#include "SYSTEM_ControlFlag.h"
 /* Export Constant			*/
 /* Export Macro				*/
 /* Export Typedef			*/
 /* Public Function Prototype */
-void TIMER_HALInit(void);
+void TIMER_HALInit(flag_t *p);
 
 #endif /* TIMER_HAL_H_ */

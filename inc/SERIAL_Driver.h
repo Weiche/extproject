@@ -7,6 +7,12 @@
 
 #ifndef SERIAL_DRIVER_H_
 #define SERIAL_DRIVER_H_
+
+/* Include					*/
+/* Export Constant			*/
+/* Export Macro				*/
+/* Export Typedef			*/
+/* Public Function Prototype */
 void	Serial_DriverInit	(void);
 void	Serial_DriverReset	(void);
 void	Serial_DriverSend	(const uint8_t *buff, uint8_t num);

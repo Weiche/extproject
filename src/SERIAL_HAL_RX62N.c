@@ -25,20 +25,22 @@
 #include <stdint.h>
 #include "SERIAL_HAL.h"
 
-void SERIAL_HALInit(uint32_t baud ){}
+void SERIAL_HALInit(uint32_t baud) {
+}
 
-void SERIAL_HALDMAInit( void ){}
+void SERIAL_HALDMAInit(void) {
+}
 
-int32_t SERIAL_HALTrySend(uint8_t c ){
+int32_t SERIAL_HALTrySend(uint8_t c) {
 
 	return 0;
 }
 
-int32_t SERIAL_HALTryRead( void ){
+int32_t SERIAL_HALTryRead(void) {
 	return 0;
 }
 
-void SERIAL_HALSendDMA( const uint8_t *p, uint32_t num){
+void SERIAL_HALSendDMA(const uint8_t *p, uint32_t num) {
 
 }
 /**************************************************************************************************
