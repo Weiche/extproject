@@ -1,7 +1,5 @@
-#include "iodefine.h"
-#include "machine.h"
-#include "CONFIG.h"
 #include <stdint.h>
+#include "CONFIG.h"
 #include "ADC_HAL.h"
 
 void ADC_HALInit(void) {

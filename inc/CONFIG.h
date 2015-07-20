@@ -2,10 +2,9 @@
 #define CONFIG_H
 
 /* Include */
-#include "iodefine.h"
-#include "machine.h"
 #include "ERROR.h"
 #include "SYSTEM_HAL.h"
+
 /*******************************
  * HARDWARE
  *******************************/

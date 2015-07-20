@@ -20,9 +20,8 @@
  *""FILE COMMENT END""****************************************************************************/
 
 /***** ÉtÉ@ÉCÉãÇÃéÊÇËçûÇ› *****/
-#include "iodefine.h"
-#include "CONFIG.h"
 #include <stdint.h>
+#include "CONFIG.h"
 #include "SERIAL_HAL.h"
 static void SERIAL_HALDMAInit(void) {
 
