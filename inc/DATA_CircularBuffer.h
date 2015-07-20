@@ -22,5 +22,9 @@ struct s_circular_buffer{
 };
 typedef struct s_circular_buffer DATA_CircularBuffer_t;
 
+int32_t DATA_CircularBufferInit(DATA_CircularBuffer_t *p,BUFFER_DATA_TYPE *buffer, int32_t buffersize) ;
+int32_t DATA_CircularBufferPut(DATA_CircularBuffer_t *p, BUFFER_DATA_TYPE c) ;
+int32_t DATA_CircularBufferGet(DATA_CircularBuffer_t *p, BUFFER_DATA_TYPE *pc) ;
+int32_t DATA_CircularBufferFlush(DATA_CircularBuffer_t *p);
 
 #endif /* DATA_CIRCULARBUFFER_H_ */

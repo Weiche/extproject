@@ -45,5 +45,5 @@ void	SERIAL_DriverReset	( SERIAL_Driver_t *this );
 int32_t	SERIAL_DriverSend	( SERIAL_Driver_t *this , const uint8_t *buff	, uint8_t num);
 int32_t	SERIAL_DriverRecv	( SERIAL_Driver_t *this , uint8_t *buff			, uint8_t max_num);
 void	SERIAL_DriverFlush	( SERIAL_Driver_t *this );
-void	SERIAL_DriverBackground( SERIAL_Driver_t *this );
+void SERIAL_DriverBackground( SERIAL_Driver_t *this );
 #endif /* SERIAL_DRIVER_H_ */

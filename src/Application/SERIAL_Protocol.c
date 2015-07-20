@@ -98,15 +98,6 @@ void SERIAL_ProtocolReset(SERIAL_Protocol_t *this) {
 
 }
 
-#ifndef SERIAL_ProtocolGetConnectionState
-int32_t SERIAL_ProtocolGetConnectionState(void) {
-	return SERIAL_STATE_CONNONLINE;
-}
-int32_t SERIAL_ProtocolGetPacketState(void) {
-	return SERIAL_STATE_CONNOFFLINE;
-}
-#endif
-
 int32_t SERIAL_ProtocolRecv(SERIAL_Protocol_t *this, data_t *buff,
 		uint32_t max_num) {
 	/* 1 Check input
@@ -161,6 +152,15 @@ void SERIAL_ProtocolBackground(SERIAL_Protocol_t *this) {
 	this->PACKET_State = SERIAL_STATE_PACKETIDLE;
 	this->PACKET_State = SERIAL_STATE_PACKETRECV;
 
+}
+
+state_t SERIAL_ProtocolGetConnectionState(SERIAL_Protocol_t *this){
+	ASSERT(this);
+	return this->CONN_State;
+}
+state_t SERIAL_ProtocolGetPacketState(SERIAL_Protocol_t *this){
+	ASSERT(this);
+	return this->PACKET_State;
 }
 /**************************************************************************************************
  end of file

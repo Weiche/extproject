@@ -19,9 +19,6 @@
 #define SERIAL_STATE_PACKETRECV		(1)
 #define SERIAL_PROTOCOL_TXBUFFERSIZE	(128)
 /* Export Macro				*/
-#define SERIAL_ProtocolGetConnectionState(p)	(p->CONN_State)
-#define SERIAL_ProtocolGetPacketState(p)		(p->PACKET_State)
-
 /* Export Typedef			*/
 typedef int32_t state_t;
 
@@ -49,10 +46,8 @@ int32_t SERIAL_ProtocolRecv(SERIAL_Protocol_t *this, data_t *buff,
 int32_t SERIAL_ProtocolSend(SERIAL_Protocol_t *this, const data_t *pdata,
 		uint32_t num);
 void SERIAL_ProtocolBackground(SERIAL_Protocol_t *this);
+state_t SERIAL_ProtocolGetConnectionState(SERIAL_Protocol_t *this);
+state_t SERIAL_ProtocolGetPacketState(SERIAL_Protocol_t *this);
 
-#ifndef SERIAL_ProtocolGetConnectionState
-state_t SERIAL_ProtocolGetConnectionState(void);
-state_t SERIAL_ProtocolGetPacketState(void);
-#endif
 
 #endif /* SERIAL_PROTOCOL_H_ */
