@@ -22,9 +22,11 @@
 /* Public Function Prototype */
 
 void SERIAL_HALInit(uint32_t baud);
-void SERIAL_HALDMAInit(void);
 int32_t SERIAL_HALTrySend(uint8_t c);
 int32_t SERIAL_HALTryRead(void);
 void SERIAL_HALSendDMA(const uint8_t *p, uint32_t num);
+
+/* Callback Function Prototype */
+extern int32_t SERIAL_DriverCallback(int32_t SERIAL_Event, void* param);
 
 #endif /* SERIAL_HAL_H_ */

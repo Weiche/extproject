@@ -5,7 +5,7 @@
 #include "iodefine.h"
 #include "machine.h"
 #include "ERROR.h"
-
+#include "SYSTEM_HAL.h"
 /*******************************
  * HARDWARE
  *******************************/
@@ -16,7 +16,7 @@
 /*******************************
  * FUNCTIONS
  *******************************/
-#define USE_ASSERT				(1)
+#define USE_ASSERT				(0)
 
 
 /*******************************
@@ -55,6 +55,8 @@
 #define VIEW_OFFSET_L			(16)
 #define VIEW_OFFSET_ADCVal		(9)
 #define VIEW_OFFSET_TIMER		(0)
+#define VIEW_OFFSET_ERROR		(0)
+#define VIEW_OFFSET_ERRORMSG	(16)
 
 /*******************************
  * TIMER
@@ -65,7 +67,7 @@
  * CHECK
  *******************************/
 #if ( USE_ASSERT == 1 )
-#define ASSERT(a)	if(!(a)){while(1);}
+#define ASSERT(a)	if(!(a)){Disable_Interrupt();while(1);}
 #else
 #define ASSERT(a)
 #endif

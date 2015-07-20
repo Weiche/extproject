@@ -5,8 +5,8 @@
  *      Author: First Version Tetsu Gi 2015/07/16
  */
 
-#ifndef TIMER_HAL_H_
-#define TIMER_HAL_H_
+#ifndef SYSTICK_HAL_H_
+#define SYSTICK_HAL_H_
 
 /* Include					*/
 #include "SYSTEM_ControlFlag.h"
@@ -14,6 +14,6 @@
 /* Export Macro				*/
 /* Export Typedef			*/
 /* Public Function Prototype */
-void TIMER_HALInit(flag_t *p);
+void SYSTICK_HALInit(flag_t *p);
 
-#endif /* TIMER_HAL_H_ */
+#endif /* SYSTICK_HAL_H_ */

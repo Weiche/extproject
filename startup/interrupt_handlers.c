@@ -52,7 +52,7 @@ void Excep_FloatingPoint(void){/* brk(); */}
 void NonMaskableInterrupt(void){/* brk(); */}
 
 // Dummy
-void Dummy(void){/* brk(); */}
+void Dummy(void){/* brk(); */while(1);}
 
 // BRK
 void Excep_BRK(void){ wait(); }

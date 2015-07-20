@@ -9,6 +9,11 @@
 #define ERROR_H_
 
 #define		ERROR_OK				(0)
+#define		ERROR_InvalidParam		(-1)
+#define		ERROR_Full				(-2)
+#define		ERROR_Empty				(-3)
+#define		ERROR_AllocationFailure	(-4)
+#define		ERROR_NotEnoughSize		(-5)
 
 #define		ERROR_ADC_FAIL			(-1000)
 

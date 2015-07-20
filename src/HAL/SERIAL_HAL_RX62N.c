@@ -20,12 +20,37 @@
  *""FILE COMMENT END""****************************************************************************/
 
 /***** ファイルの取り込み *****/
+#include "iodefine.h"
 #include "CONFIG.h"
 #include <stdint.h>
 #include "SERIAL_HAL.h"
-#include "SERIAL_Driver.h"
-/***** 関数原型(プロトタイプ)宣言 *****/
+static void SERIAL_HALDMAInit(void) {
 
+}
+
+void SERIAL_HALInit(uint32_t baud) {
+	SERIAL_HALDMAInit();
+}
+
+int32_t SERIAL_HALTrySend(uint8_t c) {
+	/* Error */
+	return 0;
+}
+
+int32_t SERIAL_HALTryRead(void) {
+	return 0;
+}
+
+void SERIAL_HALSendDMA(const uint8_t *p, uint32_t num) {
+
+}
+
+int32_t SERIAL_HALErrorHandle(void){
+	/* if some error */
+	return ERROR_SERIAL_FAIL;
+	/* else */
+	return ERROR_OK;
+}
 /**************************************************************************************************
-    end of file
-**************************************************************************************************/
+ end of file
+ **************************************************************************************************/

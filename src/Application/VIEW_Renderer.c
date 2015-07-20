@@ -99,7 +99,7 @@ void VIEW_Render(view_t view_code, const void *p) {
 }
 
 void VIEW_Init(void) {
-	/*** Todo method View Init */
+	LCD_DriverInit();
 }
 
 void VIEW_Clear(void) {

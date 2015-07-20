@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "CONFIG.h"
-#include "TIMER_HAL.h"
+#include "SYSTICK_HAL.h"
 #include "TIMER_Driver.h"
 void TIMER_DriverInit( TIMER_t *ptimer ){
 	ASSERT(ptimer);

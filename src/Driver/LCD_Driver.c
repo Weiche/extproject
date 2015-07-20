@@ -25,7 +25,7 @@
 #include "LCD_Driver.h"
 #define LCD_BUFFERSIZE	(32)
 static uint8_t __LCD_Buffer[LCD_BUFFERSIZE];
-static uint8_t __LCD_Buffer[LCD_BUFFERSIZE];
+
 /*""FUNC COMMENT""*********************************************************************************
  * ID         : ---
  * ä÷êîñº     : LCD__Initial
@@ -88,6 +88,7 @@ void LCD_DriverInit(void) {
  * History    : 
  *""FUNC COMMENT END""****************************************************************************/
 void LCD_DriverSetCursor(int32_t x, int32_t y) {
+	ASSERT((x < 32) && (y < 2));
 	LCD_DriverWriteCreg( 0x80 | y * 0x40 + x );
 }
 
@@ -230,6 +231,9 @@ void LCD_DriverBufferClear(void) {
 	*p++ = 0x20202020;
 	*p++ = 0x20202020;
 	*p++ = 0x20202020;
+#endif
+#if (LCD_BUFFERSIZE > 96 )
+#error "Not supported LCD device"
 #endif
 }
 

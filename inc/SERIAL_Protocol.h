@@ -17,7 +17,7 @@
 
 #define SERIAL_STATE_PACKETIDLE		(0)
 #define SERIAL_STATE_PACKETRECV		(1)
-
+#define SERIAL_PROTOCOL_TXBUFFERSIZE	(128)
 /* Export Macro				*/
 #define SERIAL_ProtocolGetConnectionState(p)	(p->CONN_State)
 #define SERIAL_ProtocolGetPacketState(p)		(p->PACKET_State)
@@ -32,18 +32,23 @@ struct s_data {
 };
 typedef struct s_data data_t;
 
-struct s_SERIAL_protocol{
-	int32_t	CONN_State;
+struct s_SERIAL_protocol {
+	int32_t CONN_State;
 	int32_t PACKET_State;
+	SERIAL_Driver_t Driver;
+	uint8_t TXPacketBuffer[SERIAL_PROTOCOL_TXBUFFERSIZE];
 };
 typedef struct s_SERIAL_protocol SERIAL_Protocol_t;
 
 /* Public Function Prototype */
 
-void	SERIAL_ProtocolInit(SERIAL_Protocol_t *this);
-void	SERIAL_ProtocolReset(void);
-int32_t SERIAL_ProtocolRecv(data_t *buff);/* return receive packet number */
-int32_t SERIAL_ProtocolSend(const data_t *buff);
+void SERIAL_ProtocolInit(SERIAL_Protocol_t *this);
+void SERIAL_ProtocolReset(SERIAL_Protocol_t *this);
+int32_t SERIAL_ProtocolRecv(SERIAL_Protocol_t *this, data_t *buff,
+		uint32_t max_num);/* return receive packet number */
+int32_t SERIAL_ProtocolSend(SERIAL_Protocol_t *this, const data_t *pdata,
+		uint32_t num);
+void SERIAL_ProtocolBackground(SERIAL_Protocol_t *this);
 
 #ifndef SERIAL_ProtocolGetConnectionState
 state_t SERIAL_ProtocolGetConnectionState(void);

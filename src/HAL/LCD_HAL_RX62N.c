@@ -1,6 +1,8 @@
 #include "iodefine.h"
 #include "machine.h"
 #include <stdint.h>
+#include "CONFIG.h"
+
 #define USE_CMT			(0)
 #define DELAY_50ns()	nop()
 #define DELAY_250ns()	nop();nop();nop()
@@ -108,8 +110,12 @@ void LCD_HALWriteNibbleDreg(uint8_t data)
 void LCD_HALRefreshTimerInit(void){
     /***** CMT2チャネルの初期化 *****/
     MSTP(CMT2) = 0;                        /* CMTユニット1(CMT2チャネル)モジュールストップを解除 */
-    CMT2.CMCOR = 60 - 1;                           /* CMT2.CMCORにコンペアマッチ周期を設定(1μ秒) */
+    CMT.CMSTR1.BIT.STR2 = 0;
+    CMT2.CMCNT = 0;
+    CMT2.CMCOR = (SYS_PCLK / 8.0F / 1000.0F * 1.0F) - 1;                           /* CMT2.CMCORにコンペアマッチ周期を設定(1μ秒) */
     CMT2.CMCR.WORD = 0x00C0;             /* 周辺クロックPCLK=48MHzの8分周を設定 CMT2割り込み許可 */
     IR( CMT2,CMI2) = 0;
-    IEN( CMT2,CMI2 ) = 1;
+    IPR( CMT2,CMI2) = 1;
+    IEN( CMT2,CMI2 ) = 0;
+    CMT.CMSTR1.BIT.STR2 = 1;
 }

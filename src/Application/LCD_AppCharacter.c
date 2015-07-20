@@ -1,6 +1,6 @@
 #include "LCD_CustomChar.h"
 #include <stdint.h>
-
+#include "LCD_Driver.h"
 const uint8_t LCD_ModelLevelHOR1[] = {
 	X____,
 	X____,

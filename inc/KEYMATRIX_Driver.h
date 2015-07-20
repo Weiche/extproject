@@ -14,16 +14,9 @@
 /* Export Macro				*/
 /* Export Typedef			*/
 /* Public Function Prototype */
-/******************************
- * function: void KEYMATRIX_DriverInit(void)
- * @brief		Scan key array
- ******************************/
+
 void KEYMATRIX_DriverInit(void);
-/*********************************************
- * function: int32_t KEYMATRIX_DriverScan( void )
- * @brief	Scan key array, callback in function
- ********************************************/
-void KEYMATRIX_DriverScan( void );
+void KEYMATRIX_DriverScan(void);
 
 /* Callback Function Prototype */
 /*********************************************
@@ -32,6 +25,6 @@ void KEYMATRIX_DriverScan( void );
  * @param	code: which key pressed
  * @return	none
  ********************************************/
-extern void KEYMATRIX_Callback( uint32_t code );
+extern void KEYMATRIX_Callback(uint32_t code);
 
 #endif /* KEYMATRIX_DRIVER_H_ */

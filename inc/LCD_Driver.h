@@ -7,8 +7,11 @@
 #include "CONFIG.h"
 #define LCD_REFRESH_PERIOD_PERBYTE		((LCD_REFRESH_PERIOD * 1000.0F) /  34.0)/* ms */
 /* Export Constant			*/
+
 /* Export Macro				*/
+
 /* Export Typedef			*/
+
 /* Public Function Prototype */
 void LCD_DriverInit(void); /* LCDÇÃèâä˙ê›íË */
 void LCD_DriverSetCursor(int32_t x, int32_t y); /* ï\é¶à íuÇÃéwíË */
@@ -20,6 +23,7 @@ void LCD_DriverAddCGRAM(uint8_t addr, const uint8_t *pdot);
 void LCD_DriverRefresh(void);
 void LCD_DriverBufferWrite(uint8_t pos, uint8_t c);
 void LCD_DriverBufferClear(void) ;
+void LCD_DriverAddCGRAM(uint8_t addr, const uint8_t *pdot);
 
 #endif
 /* End of File */
