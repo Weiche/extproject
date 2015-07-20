@@ -9,7 +9,7 @@
 #define SYSTEM_HAL_H_
 /* Include					*/
 #include "iodefine.h"
-#include "machine.h"
+#include <machine.h>
 /* Export Constant			*/
 /* Export Macro				*/
 #define		Enable_Interrupt()	setpsw_i()

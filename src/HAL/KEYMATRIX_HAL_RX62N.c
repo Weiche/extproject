@@ -1,7 +1,8 @@
-#include <KEYMATRIX_HAL.h>
-#include "iodefine.h"
 #include <stdint.h>
-#include <machine.h>
+#include "CONFIG.h"
+#include "KEYMATRIX_HAL.h"
+
+
 /******************************
  * function: void KEYMATRIX_HALInit(void)
  * @brief		Scan key array

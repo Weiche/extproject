@@ -17,6 +17,6 @@
 
 #define		ERROR_ADC_FAIL			(-1000)
 
-#define		ERROR_SERIAL_FAIL		(-500)
-
+#define		ERROR_SERIAL_FAIL		 (-500)
+#define		ERROR_SERIAL_PACKETERROR (-501)
 #endif /* ERROR_H_ */

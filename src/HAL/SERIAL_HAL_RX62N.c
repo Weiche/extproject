@@ -20,14 +20,22 @@
  *""FILE COMMENT END""****************************************************************************/
 
 /***** ファイルの取り込み *****/
-#include "iodefine.h"
-#include "CONFIG.h"
 #include <stdint.h>
+#include "CONFIG.h"
 #include "SERIAL_HAL.h"
 static void SERIAL_HALDMAInit(void) {
 
 }
-
+/*""FUNC COMMENT""*********************************************************************************
+ * ID         : ---
+ * 関数名     : SERIAL_HALInit
+ * 機能       : シリアル通信用周辺機能の初期化
+ * 引数       : uint32_t baud : baudrate
+ * 返却値     : なし
+ * 使用関数   : なし
+ * 注意事項   :
+ * History    :
+ *""FUNC COMMENT END""****************************************************************************/
 void SERIAL_HALInit(uint32_t baud) {
 	SERIAL_HALDMAInit();
 }

@@ -5,9 +5,8 @@
  *      Author: Tetsu Gi
  */
 #include <stdint.h>
-#include "DATA_CircularBuffer.h"
-#include "ERROR.h"
 #include "CONFIG.h"
+#include "DATA_CircularBuffer.h"
 
 #define __EINT()
 #define __DINT()

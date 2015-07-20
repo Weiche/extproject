@@ -1,7 +1,6 @@
-#include "iodefine.h"
-#include "machine.h"
 #include <stdint.h>
 #include "CONFIG.h"
+#include "LCD_HAL.h"
 
 #define USE_CMT			(0)
 #define DELAY_50ns()	nop()
