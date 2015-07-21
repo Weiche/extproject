@@ -34,6 +34,8 @@ struct s_SERIAL_protocol {
 	int32_t PACKET_State;
 	SERIAL_Driver_t Driver;
 	uint8_t TXPacketBuffer[SERIAL_PROTOCOL_TXBUFFERSIZE];
+	uint8_t TempRXBuffer[64];
+	int32_t TempRXBufferIndex;
 };
 typedef struct s_SERIAL_protocol SERIAL_Protocol_t;
 

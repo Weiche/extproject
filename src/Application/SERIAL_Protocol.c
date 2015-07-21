@@ -95,18 +95,24 @@ void SERIAL_ProtocolInit(SERIAL_Protocol_t *this) {
 	SERIAL_DriverInit(&this->Driver);
 }
 void SERIAL_ProtocolReset(SERIAL_Protocol_t *this) {
-
+	SERIAL_DriverReset(&this->Driver);
 }
 
 int32_t SERIAL_ProtocolRecv(SERIAL_Protocol_t *this, data_t *buff,
 		uint32_t max_num) {
-	/* 1 Check input
-	 * 2 Call driver receiver to check if any packet received
+	int32_t ret = 0;
+	/* 1 Check input */
+	ASSERT(this);
+	ASSERT(buff);
+	while(max_num--){
+		TempRXBuffer
+	 /* 2 Call driver receiver to check if any packet received
 	 * 3 Disassemble packet with protocol format
 	 * 4 Copy to data_t *buff
 	 */
 	/* return receive packet number */
-	return 0;
+	}
+	return ret;
 }
 
 int32_t SERIAL_ProtocolSend(SERIAL_Protocol_t *this, const data_t *pdata,
@@ -146,11 +152,36 @@ int32_t SERIAL_ProtocolSend(SERIAL_Protocol_t *this, const data_t *pdata,
 }
 
 void SERIAL_ProtocolBackground(SERIAL_Protocol_t *this) {
+	int ret,i;
 	SERIAL_DriverBackground(&this->Driver);
+	/* STATE IDLE */
+	if( this->PACKET_State == SERIAL_STATE_PACKETIDLE ){
+		/* receive */
+		ret = SERIAL_DriverRecv(&this->Driver, &(this->TempRXBuffer[0]),sizeof(this->TempRXBuffer));
+		if( ret >= 1 ){
+			i = ret;
+			while( i-- ){
+				if(this->TempRXBuffer[i] == SERIAL_PROTOCOL_START_CODE){
+
+					break;
+				}
+			}
+			this->TempRXBufferIndex = ret;
+			this->PACKET_State = SERIAL_STATE_PACKETRECV;
+		}
+
+	}
+	/* STATE RECEIVING */
+	else if( this->PACKET_State == SERIAL_STATE_PACKETRECV ){
+
+	}
+
 	this->CONN_State = SERIAL_STATE_CONNOFFLINE;
 	this->CONN_State = SERIAL_STATE_CONNONLINE;
-	this->PACKET_State = SERIAL_STATE_PACKETIDLE;
+
 	this->PACKET_State = SERIAL_STATE_PACKETRECV;
+
+
 
 }
 
