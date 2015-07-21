@@ -30,9 +30,12 @@ struct s_data {
 typedef struct s_data data_t;
 
 struct s_SERIAL_protocol {
+	SERIAL_Driver_t Driver;
 	int32_t CONN_State;
 	int32_t PACKET_State;
-	SERIAL_Driver_t Driver;
+	int32_t ERROR_State;
+	uint32_t PACKET_Timeout;
+	uint32_t CONN_Timeout;
 	uint8_t TXPacketBuffer[SERIAL_PROTOCOL_TXBUFFERSIZE];
 	uint8_t TempRXBuffer[64];
 	int32_t TempRXBufferIndex;

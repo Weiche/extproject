@@ -50,7 +50,12 @@ void SERIAL_DriverReset(SERIAL_Driver_t *this) {
 	while (SERIAL_HALErrorHandle() != ERROR_OK)
 		;
 }
-
+/*
+ * @return bytes of sent data
+ *
+ *
+ *
+ */
 int32_t SERIAL_DriverSend(SERIAL_Driver_t *this, const uint8_t *buff,
 		uint8_t num) {
 	/* Assert non-null pointer */
@@ -64,7 +69,12 @@ int32_t SERIAL_DriverSend(SERIAL_Driver_t *this, const uint8_t *buff,
 	SERIAL_HALSendDMA(buff, num);
 	return num;
 }
-
+/*
+ * @return bytes of received data
+ *
+ *
+ *
+ */
 int32_t SERIAL_DriverRecv(SERIAL_Driver_t *this, uint8_t *buff, uint8_t max_num) {
 	int32_t ret = 0;
 	ASSERT(this); ASSERT(buff);
