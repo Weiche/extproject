@@ -18,5 +18,9 @@
 #define		ERROR_ADC_FAIL			(-1000)
 
 #define		ERROR_SERIAL_FAIL		 (-500)
-#define		ERROR_SERIAL_PACKETERROR (-501)
+#define		ERROR_SERIAL_OVERRUN	 (-501)
+#define		ERROR_SERIAL_FLAMING	 (-502)
+#define		ERROR_SERIAL_PACKET		 (-503)
+#define		ERROR_SERIAL_BUSY		 (-504)
+
 #endif /* ERROR_H_ */

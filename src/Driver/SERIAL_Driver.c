@@ -27,9 +27,8 @@
 
 /***** 関数原型(プロトタイプ)宣言 *****/
 void SERIAL_DriverInit(SERIAL_Driver_t *this) {
-	register int32_t ret;
+	register int32_t ret, i;
 	ASSERT(this);
-
 	/* Initialize Hardware abstract layer */
 	SERIAL_HALInit(SERIAL_HAL_BAUD);
 
@@ -38,13 +37,18 @@ void SERIAL_DriverInit(SERIAL_Driver_t *this) {
 			sizeof(this->RX_Memory));
 	ASSERT(ret == ERROR_OK);
 
+	this->RX_State = 0;
+	this->TX_State = 0;
+	this->Error_State = 0;
 	/* Initialize RX TX State */
-	(void)ret;
+	(void) ret;
 }
 
 void SERIAL_DriverReset(SERIAL_Driver_t *this) {
 	ASSERT(this);
-
+	DATA_CircularBufferFlush(&this->RX_Buffer);
+	while (SERIAL_HALErrorHandle() != ERROR_OK)
+		;
 }
 
 int32_t SERIAL_DriverSend(SERIAL_Driver_t *this, const uint8_t *buff,
@@ -54,30 +58,59 @@ int32_t SERIAL_DriverSend(SERIAL_Driver_t *this, const uint8_t *buff,
 	/* Assert non-null pointer */
 	ASSERT(buff);
 	this->TX_State = 1;
+	if (this->TX_State == 1) {
+		return ERROR_SERIAL_BUSY;
+	}
 	SERIAL_HALSendDMA(buff, num);
 	return num;
 }
 
 int32_t SERIAL_DriverRecv(SERIAL_Driver_t *this, uint8_t *buff, uint8_t max_num) {
-	ASSERT(this);
-
-	ASSERT(buff);
-	return 0;
+	int32_t ret = 0;
+	ASSERT(this); ASSERT(buff);
+	while (max_num) {
+		if (DATA_CircularBufferGet(&this->RX_Buffer, buff) != ERROR_Empty) {
+			buff++;
+			ret++;
+			max_num--;
+		}
+	}
+	return ret;
 }
 
-void SERIAL_DriverBackground( SERIAL_Driver_t *this ){
+void SERIAL_DriverBackground(SERIAL_Driver_t *this) {
+	static uint32_t rx_timeout;
 	int32_t ret;
 	/* Handler Serial hardware errors */
 	ret = SERIAL_HALErrorHandle();
+	if ((ret == ERROR_SERIAL_FLAMING) || (ret == ERROR_SERIAL_OVERRUN)) {
+		this->Error_State = 1;
+	}
+
 	/* Polling Receive */
+	ret = SERIAL_HALTryRead();
+	if (!(ret < 0)) {
+		this->RX_State = 1;
+		rx_timeout = SERIAL_DRIVER_RXTIMEOUT;
+		DATA_CircularBufferPut(&this->RX_Buffer, (uint8_t) ret);
+	} else {
+		rx_timeout--;
+		if (rx_timeout == 0) {
+			this->RX_State = 0;
+		}
+	}
 
-	/* Polling Transmit */
-	(void)ret;
+	/* Polling Transmit ( or DMA ) */
+	if ( SERIAL_HAL_DMA_TC_FLAG == 1) {
+		SERIAL_HAL_DMA_TC_FLAG = 0;
+		this->TX_State = 0;
+	}
 }
-
-int32_t SERIAL_DriverCallback(int32_t SERIAL_Event, void* param){
-	return ERROR_OK;
-}
+/*
+ int32_t SERIAL_DriverCallback(int32_t SERIAL_Event, void* param) {
+ return ERROR_OK;
+ }
+ */
 /**************************************************************************************************
  end of file
  **************************************************************************************************/

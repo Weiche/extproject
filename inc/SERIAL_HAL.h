@@ -10,7 +10,7 @@
 
 /* Include					*/
 #include <stdint.h>
-
+#include "CONFIG.h"
 /* Export Constant			*/
 #define SERIAL_BAUD_9600		(9600)
 #define SERIAL_BAUD_19200		(19200)
@@ -18,6 +18,7 @@
 #define SERIAL_BAUD_115200		(115200)
 
 /* Export Macro				*/
+#define SERIAL_HAL_DMA_TC_FLAG		(DMA_TCFLAG)
 /* Export Typedef			*/
 /* Public Function Prototype */
 

@@ -57,12 +57,12 @@ static int32_t SERIAL_ProtocolDisassemblePacket(const uint8_t *buff, data_t *pda
 	(void)SERIAL_ProtocolDisassemblePacket;
 	ASSERT( pdata );
 	if( buff[0] != SERIAL_PROTOCOL_START_CODE ){
-		return ERROR_SERIAL_PACKETERROR;
+		return ERROR_SERIAL_PACKET;
 	}
 	/* Check if type and length is a number */
 	for( i = 1; i <= 4; i++ ){
 		if( ASCII2NUM(buff[i]) > 9 ){
-			return ERROR_SERIAL_PACKETERROR;
+			return ERROR_SERIAL_PACKET;
 		}
 	}
 	/* convert ASCII to decimal */
@@ -73,12 +73,12 @@ static int32_t SERIAL_ProtocolDisassemblePacket(const uint8_t *buff, data_t *pda
 
 	/* Check length */
 	if( length > 10 ){
-		return ERROR_SERIAL_PACKETERROR;
+		return ERROR_SERIAL_PACKET;
 	}
 
 	/* Check End code */
 	if( buff[ length + 5 ] != SERIAL_PROTOCOL_END_CODE ){
-		return ERROR_SERIAL_PACKETERROR;
+		return ERROR_SERIAL_PACKET;
 	}
 
 	/* Copy data */

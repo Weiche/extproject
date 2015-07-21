@@ -12,10 +12,11 @@
 #include <machine.h>
 /* Export Constant			*/
 /* Export Macro				*/
-#define		Enable_Interrupt()	setpsw_i()
-#define		Disable_Interrupt()	clrpsw_i()
+#define		Enable_Interrupt()		setpsw_i()
+#define		Disable_Interrupt()		clrpsw_i()
 
 #define		LCD_TIMERFLAG	(IR(CMT2,CMI2))
+#define		DMA_TCFLAG		(IR(DMAC,DMAC0I))
 /* Export Typedef			*/
 /* Public Function Prototype */
 

@@ -12,30 +12,17 @@
 #include "DATA_CircularBuffer.h"
 #include "SYSTEM_ControlFlag.h"
 /* Export Constant			*/
-#define MEMORYPOOL_SIZE	(4)
-#define MEMORYPOLL_CELLSIZE	(32)
+#define SERIAL_RX_BUFFERSIZE	(128)
+
 /* Export Macro				*/
 
 /* Export Typedef			*/
-struct s_memorypool_cell{
-	uint8_t buff[MEMORYPOLL_CELLSIZE];
-	int16_t lock;
-	int16_t size;
-	struct s_memorypool *next;
-};
-typedef struct s_memorypool_cell DATA_MemoryPoolCell_t;
-
-struct s_memorypool{
-	DATA_MemoryPoolCell_t *root;
-	DATA_MemoryPoolCell_t cells[MEMORYPOOL_SIZE];
-};
-typedef struct s_memorypool DATA_MemoryPool_t;
-
 struct s_serial_driver {
 	int32_t TX_State;
 	int32_t RX_State;
+	uint32_t Error_State;
 	DATA_CircularBuffer_t RX_Buffer;
-	uint8_t RX_Memory[MEMORYPOOL_SIZE * MEMORYPOLL_CELLSIZE];
+	uint8_t RX_Memory[SERIAL_RX_BUFFERSIZE];
 };
 typedef struct s_serial_driver SERIAL_Driver_t;
 
