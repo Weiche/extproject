@@ -30,24 +30,17 @@ int32_t ADC_HALGetRaw(void) {
 	static uint32_t ad[ADC_OVERSAMPLING];
 
 	if ( IR ( AD0, ADI0 )== 1 ) {
-
 		IR(AD0,ADI0)=0;
 		ad[cnt] = (AD0.ADDRA);
 		if(ADC_OVERSAMPLING <= ++cnt) {
 			cnt=0;
 			fix_ad=0;
-
 			for(i=0;i<ADC_OVERSAMPLING;i++) {
-
 				fix_ad += ad[i];
-
 			}
-
 			fix_ad /= ADC_OVERSAMPLING;
-
 		}
 	}
-
 	else {
 		return ERROR_ADC_FAIL;
 	}

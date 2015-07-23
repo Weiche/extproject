@@ -117,13 +117,15 @@ void CONTROLLER_MainLoop(void) {
 	static int32_t adv;
 
 	/* Executed Every Loop */
+	PORT1.DR.BIT.B5 = 1;
 	SERIAL_ProtocolBackground(&Serial);
+	PORT1.DR.BIT.B5 = 0;
 
 	if ( SYSTEM_GetFlagLCD() == 1) {
 		SYSTEM_ClrFlagLCD();
 		VIEW_Refresh();
 	}
-	PORT1.DR.BIT.B5 = 0;
+
 	START(FLAG_10ms)
 	TIMER_DriverCount(&TIMER_OneHour);
 	ADC_DriverSoftStart();
@@ -135,10 +137,12 @@ void CONTROLLER_MainLoop(void) {
 	YIELD(FLAG_10ms)
 	adv = ADC_DriverGetVoltage();
 	VTC_Voltage2Char(adv, &self_view);
+	__SelfData();
 
 	YIELD(FLAG_10ms)
-	__SelfData();
+	PORT1.DR.BIT.B5 = 1;
 	SERIAL_ProtocolSend(&Serial, &packet_tx[0], 2);
+	PORT1.DR.BIT.B5 = 0;
 
 	YIELD(FLAG_10ms)
 	ret = SERIAL_ProtocolRecv(&Serial, packet, 2);
@@ -155,7 +159,6 @@ void CONTROLLER_MainLoop(void) {
 	VIEW_Render(VIEW_State, __VIEW_StateMachine(0));
 	END(FLAG_10ms)
 
-return;
 }
 
 static void VTC_Voltage2Char(uint32_t voltage, VIEW_ascii_t *p_View) {

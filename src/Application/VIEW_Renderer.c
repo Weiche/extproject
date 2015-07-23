@@ -3,10 +3,8 @@
 #include "LCD_Driver.h"
 #include "VIEW_Renderer.h"
 
-
-
 /* private functions */
-static void VIEW_RenderTime(const VIEW_ascii_t *p){
+static void VIEW_RenderTime(const VIEW_ascii_t *p) {
 	ASSERT(p != 0);
 	/* render timer */
 	LCD_DriverBufferWrite( VIEW_OFFSET_TIMER + 0, p->min[0]);
@@ -38,9 +36,37 @@ static void VIEW_RenderError(const char *p) {
 	LCD_DriverBufferWrite( VIEW_OFFSET_ERROR + 3, 'o');
 	LCD_DriverBufferWrite( VIEW_OFFSET_ERROR + 4, 'r');
 }
-
-#if (USE_ADCBAR_EXT==0)
+/******By WEI*/
 static void VIEW_RenderADCBar(const VIEW_ascii_t *p) {
+	static uint32_t adc;
+	static const uint8_t table[7][6] = {
+			{ 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
+			{ 0xFF, 0x20, 0x20, 0x20, 0x20, 0x20 },
+			{ 0xFF, 0xFF, 0x20, 0x20, 0x20, 0x20 },
+			{ 0xFF, 0xFF, 0xFF, 0x20, 0x20, 0x20 },
+			{ 0xFF, 0xFF, 0xFF, 0xFF, 0x20, 0x20 },
+			{ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x20 },
+			{ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF },
+
+	};
+	ASSERT(p != 0);
+
+	/* render adc bar */
+	adc = 0;
+	adc += (p->adc[0] - 0x30) * 100;
+	adc += (p->adc[1] - 0x30) * 10;
+	adc += (p->adc[2] - 0x30) * 1;
+
+	adc = adc / ( 330 / 7 );
+	if (adc > 6) {
+		adc = 6;
+	}
+	LCD_DriverBufferWriten(VIEW_OFFSET_BAR , table[adc], 6 );
+}
+
+/******/
+#if (USE_ADCBAR_EXT==0)
+static void VIEW_RenderADCBar1(const VIEW_ascii_t *p) {
 	static const uint8_t table[2] = { 0x20, 0xFF };
 	int32_t i, adc, adc_disp;
 
@@ -52,7 +78,7 @@ static void VIEW_RenderADCBar(const VIEW_ascii_t *p) {
 	adc += (p->adc[1] - 0x30) * 10;
 	adc += (p->adc[2] - 0x30) * 1;
 
-	if( adc >= 330 ){
+	if (adc >= 330) {
 		adc = 330;
 	}
 	adc_disp = adc / (330 / 33);
@@ -68,8 +94,8 @@ static void VIEW_RenderADCBar(const VIEW_ascii_t *p) {
 	}
 }
 #else
-static void VIEW_RenderADCBar(const VIEW_ascii_t *p){
-	static const uint8_t table[] = { 0x20, 0x01, 0x02, 0x03, 0x04, 0xFF };
+static void VIEW_RenderADCBar(const VIEW_ascii_t *p) {
+	static const uint8_t table[] = {0x20, 0x01, 0x02, 0x03, 0x04, 0xFF};
 	int32_t i, adc, adc_disp;
 
 	ASSERT(p != 0);
@@ -102,38 +128,32 @@ static void VIEW_RenderL(void) {
 	LCD_DriverBufferWrite( VIEW_OFFSET_L + 0, 'L');
 }
 
-
 /* public functions */
 void VIEW_Render(view_t view_code, const void *p) {
 	const VIEW_ascii_t *pVIEW = p;
 
 	LCD_DriverBufferClear();
 	switch (view_code) {
-	case VIEW_SELF:
-		VIEW_RenderL();
-		VIEW_RenderTime(p);
-		VIEW_RenderADCValue(p);
-		VIEW_RenderADCBar(p);
-		break;
+
 	case VIEW_RECV:
 		ASSERT(p);
 		VIEW_RenderTime(p);
 		VIEW_RenderADCValue(p);
 		VIEW_RenderADCBar(p);
 		break;
-	case VIEW_MESSAGE:
-		/* p string output */
-		//VIEW_RenderMessage( p );
-		if (p == 0) {
-			/* strcpy() */
-		}
+	case VIEW_SELF:
+		VIEW_RenderL();
+		VIEW_RenderTime(p);
+		VIEW_RenderADCValue(p);
+		VIEW_RenderADCBar(p);
 		break;
+
 	case VIEW_ERROR:
 		VIEW_RenderError("ERROR");
 		break;
 
 	}
-	(void)pVIEW;
+	(void) pVIEW;
 }
 
 void VIEW_Init(void) {
@@ -144,7 +164,7 @@ void VIEW_Clear(void) {
 	LCD_DriverBufferClear();
 }
 
-void VIEW_Refresh(void){
+void VIEW_Refresh(void) {
 	LCD_DriverRefresh();
 }
 
