@@ -24,6 +24,7 @@ typedef struct view_ascii_s VIEW_ascii_t;
 void VIEW_Render(view_t view_code, const void *p);
 void VIEW_Init(void);
 void VIEW_Clear(void);
+void VIEW_Refresh(void);
 /* Private Function Prototype */
 #endif
 /* End of File */

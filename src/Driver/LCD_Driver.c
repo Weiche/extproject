@@ -20,10 +20,12 @@
  *""FILE COMMENT END""****************************************************************************/
 
 /***** ÉtÉ@ÉCÉãÇÃéÊÇËçûÇ› *****/
+#include <stdint.h>
 #include "CONFIG.h"
 #include "LCD_HAL.h"
 #include "LCD_Driver.h"
 #define LCD_BUFFERSIZE	(32)
+#define LCD_REFRESH_PERIOD_PERBYTE		((LCD_REFRESH_PERIOD * 1000.0F) /  34.0)/* ms */
 static uint8_t __LCD_Buffer[LCD_BUFFERSIZE];
 
 /*""FUNC COMMENT""*********************************************************************************

@@ -2,7 +2,7 @@
 #include "CONFIG.h"
 #include "SYSTICK_HAL.h"
 #include "SYSTEM_ControlFlag.h"
-
+#undef USE_BENCHMARK
 static flag_t *__pFlag10ms = 0;
 void SYSTICK_HALInit(flag_t *p){
 	ASSERT(p != 0);
@@ -23,6 +23,14 @@ void SYSTICK_HALInit(flag_t *p){
 
 #pragma interrupt SYSTICK_Handler(vect= VECT(CMT0, CMI0))
 void SYSTICK_Handler(void){
+#if (USE_BENCHMARK== 1)
+	PORT1.DR.BIT.B5 = 1;
+	PORT1.DR.BIT.B5 = 0;
+	PORT1.DR.BIT.B5 = 1;
+#endif
 	ASSERT(__pFlag10ms);
 	*__pFlag10ms = 1;
+#if (USE_BENCHMARK == 1)
+	PORT1.DR.BIT.B5 = 0;
+#endif
 }

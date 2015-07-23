@@ -11,8 +11,9 @@
 /* Include					*/
 #include "DATA_CircularBuffer.h"
 #include "SYSTEM_ControlFlag.h"
+#include "CONFIG.h"
 /* Export Constant			*/
-#define SERIAL_RX_BUFFERSIZE	(128)
+
 
 /* Export Macro				*/
 

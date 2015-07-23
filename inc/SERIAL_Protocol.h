@@ -17,7 +17,7 @@
 
 #define SERIAL_STATE_PACKETIDLE		(0)
 #define SERIAL_STATE_PACKETRECV		(1)
-#define SERIAL_PROTOCOL_TXBUFFERSIZE	(128)
+
 /* Export Macro				*/
 /* Export Typedef			*/
 typedef int32_t state_t;

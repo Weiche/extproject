@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include "CONTROLLER.h"
 #include "SYSTEM_HAL.h"
+#include "SERIAL_Protocol.h"
 /***********************************************************************/
 /*                                                                     */
 /*  FILE        :Main.c or Main.cpp                                    */
@@ -36,13 +37,19 @@ extern "C" {
 void abort(void);
 }
 #endif
-
 void main(void)
 {
+#if (USE_BENCHMARK == 1)
+	PORT1.DDR.BIT.B3 = 1;
+	PORT1.DDR.BIT.B5 = 1;
+#endif
 	CONTROLLER_Init();
 	Enable_Interrupt();
 	/* Main Loop */
 	while(1){
+#if (USE_BENCHMARK == 1)
+		PORT1.DR.BIT.B3 ^= 1;
+#endif
 		CONTROLLER_MainLoop();
 	}
 }

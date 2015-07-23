@@ -31,6 +31,6 @@ void KEYMATRIX_HALSetScanline(uint8_t scan_line);
  * function: void KEYMATRIX_HALGetData(uint8_t scan_line)
  * @brief		get line data
  ******************************/
-void KEYMATRIX_HALGetData(uint8_t data_line);
+void KEYMATRIX_HALGetData(uint8_t *data_line);
 
 #endif /* KEYMATRIX_HAL_H_ */

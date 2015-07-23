@@ -27,7 +27,7 @@
 
 /***** 関数原型(プロトタイプ)宣言 *****/
 void SERIAL_DriverInit(SERIAL_Driver_t *this) {
-	register int32_t ret, i;
+	register int32_t ret;
 	ASSERT(this);
 	/* Initialize Hardware abstract layer */
 	SERIAL_HALInit(SERIAL_HAL_BAUD);
@@ -62,16 +62,17 @@ int32_t SERIAL_DriverSend(SERIAL_Driver_t *this, const uint8_t *buff,
 	ASSERT(this);
 	/* Assert non-null pointer */
 	ASSERT(buff);
-	this->TX_State = 1;
+
 	if (this->TX_State == 1) {
 		return ERROR_SERIAL_BUSY;
 	}
+	this->TX_State = 1;
 	SERIAL_HALSendDMA(buff, num);
 	return num;
 }
 /*
  * @return bytes of received data
- *
+ * @param this: object, buff: output buffer, max_num: output buffersize/bytes to receive
  *
  *
  */
@@ -83,6 +84,8 @@ int32_t SERIAL_DriverRecv(SERIAL_Driver_t *this, uint8_t *buff, uint8_t max_num)
 			buff++;
 			ret++;
 			max_num--;
+		}else{
+			break;
 		}
 	}
 	return ret;
@@ -93,10 +96,12 @@ void SERIAL_DriverBackground(SERIAL_Driver_t *this) {
 	int32_t ret;
 	/* Handler Serial hardware errors */
 	ret = SERIAL_HALErrorHandle();
-	if ((ret == ERROR_SERIAL_FLAMING) || (ret == ERROR_SERIAL_OVERRUN)) {
-		this->Error_State = 1;
+	if (ret == ERROR_SERIAL_FLAMING) {
+		this->Error_State |= 1;
 	}
-
+	if (ret == ERROR_SERIAL_OVERRUN) {
+		this->Error_State |= (1<<1);
+	}
 	/* Polling Receive */
 	ret = SERIAL_HALTryRead();
 	if (!(ret < 0)) {
@@ -111,8 +116,8 @@ void SERIAL_DriverBackground(SERIAL_Driver_t *this) {
 	}
 
 	/* Polling Transmit ( or DMA ) */
-	if ( SERIAL_HAL_DMA_TC_FLAG == 1) {
-		SERIAL_HAL_DMA_TC_FLAG = 0;
+	if ( DMA_TCFLAG == 1 && this->TX_State == 1) {
+		DMA_TCFLAG = 0;
 		this->TX_State = 0;
 	}
 }

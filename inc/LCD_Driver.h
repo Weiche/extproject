@@ -5,7 +5,7 @@
 /* Include					*/
 #include <stdint.h>
 #include "CONFIG.h"
-#define LCD_REFRESH_PERIOD_PERBYTE		((LCD_REFRESH_PERIOD * 1000.0F) /  34.0)/* ms */
+
 /* Export Constant			*/
 
 /* Export Macro				*/

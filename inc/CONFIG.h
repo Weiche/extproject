@@ -16,7 +16,7 @@
  * FUNCTIONS
  *******************************/
 #define USE_ASSERT				(0)
-
+#define USE_BENCHMARK				(1)
 
 /*******************************
  * LCD
@@ -40,19 +40,22 @@
 #define SERIAL_HAL_BAUD			(38400)
 #define SERIAL_HAL_STOPBIT		(1)
 #define SERIAL_HAL_STARTBIT		(0)
-#define SERIAL_METHOD_DMA		(1)
+
+/* SERIAL Driver */
 #define SERIAL_DRIVER_RXTIMEOUT (10000)
+#define SERIAL_RX_BUFFERSIZE	(128)
 /* SERIAL PROTOCOL */
 #define SERIAL_PROTOCOL_START_CODE		('^')
 #define SERIAL_PROTOCOL_END_CODE		('$')
 #define SERIAL_PROTOCOL_MAXPACKETLEN	(10)
+#define SERIAL_PROTOCOL_TXBUFFERSIZE	(128)
 
 /*******************************
  * VIEW
  *******************************/
 #define VIEW_OFFSET_BAR			(24)
 #define VIEW_OFFSET_L			(16)
-#define VIEW_OFFSET_ADCVal		(9)
+#define VIEW_OFFSET_ADCVal		(18)
 #define VIEW_OFFSET_TIMER		(0)
 #define VIEW_OFFSET_ERROR		(0)
 #define VIEW_OFFSET_ERRORMSG	(16)
@@ -61,6 +64,13 @@
  * TIMER
  *******************************/
 #define TIMER_MAX_MINUTE		(60)
+
+/*******************************
+ * ADC
+ *******************************/
+#define ADC_RESOLUTION_BIT		(10)
+#define ADC_VOLTAGE_REF			(3.3)
+#define ADC_OVERSAMPLING  		(4)
 
 /*******************************
  * CHECK

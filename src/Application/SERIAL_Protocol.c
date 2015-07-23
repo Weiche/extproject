@@ -1,17 +1,17 @@
 /*""FILE COMMENT""*********************************************************************************
- *  System Name : ���̃v���O�����͋���p�ł��B(�]�p�s��)
+ *  System Name : �ｿｽ�ｿｽ�ｿｽﾌプ�ｿｽ�ｿｽ�ｿｽO�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾍ具ｿｽ�ｿｽ�ｿｽp�ｿｽﾅゑｿｽ�ｿｽB(�ｿｽ]�ｿｽp�ｿｽs�ｿｽ�ｿｽ)
  *  File Name   : SERIAL.c
- *  Contents    : �f�o�C�X�h���C�o�݌v�R�[�X �������K �v���O�����쐬
- *              : �ۑ�C:�p�\�R������̃R�}���h�w���ɉ������p���X���[�^�̐���
+ *  Contents    : �ｿｽf�ｿｽo�ｿｽC�ｿｽX�ｿｽh�ｿｽ�ｿｽ�ｿｽC�ｿｽo�ｿｽﾝ計�ｿｽR�ｿｽ[�ｿｽX �ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽK �ｿｽv�ｿｽ�ｿｽ�ｿｽO�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�成
+ *              : �ｿｽﾛ托ｿｽC:�ｿｽp�ｿｽ\�ｿｽR�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌコ�ｿｽ}�ｿｽ�ｿｽ�ｿｽh�ｿｽw�ｿｽ�ｿｽ�ｿｽﾉ会ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽp�ｿｽ�ｿｽ�ｿｽX�ｿｽ�ｿｽ�ｿｽ[�ｿｽ^�ｿｽﾌ撰ｿｽ�ｿｽ�ｿｽ
  *  Model       : 
- *  CPU         : RX�t�@�~��/RX600�V���[�Y/RX62N�O���[�v
- *  Compiler    : RX�t�@�~�� C/C++�R���p�C��
- *  OS          : �g�p����
- *  Programmer  : ���l�T�X�����̃g���[�j���O�Z���^�[
- *  Note        : �R���p�C���I�u�W�F�N�g�I�v�V����-nostuff�w��
- *              : �R���p�C���I�u�W�F�N�g�I�v�V����-section=L=C�w��
- *              : �R���p�C���œK���I�v�V����-noschedule�w��
- *              : �R���p�C���œK���I�v�V����-case=ifthen�w��
+ *  CPU         : RX�ｿｽt�ｿｽ@�ｿｽ~�ｿｽ�ｿｽ/RX600�ｿｽV�ｿｽ�ｿｽ�ｿｽ[�ｿｽY/RX62N�ｿｽO�ｿｽ�ｿｽ�ｿｽ[�ｿｽv
+ *  Compiler    : RX�ｿｽt�ｿｽ@�ｿｽ~�ｿｽ�ｿｽ C/C++�ｿｽR�ｿｽ�ｿｽ�ｿｽp�ｿｽC�ｿｽ�ｿｽ
+ *  OS          : �ｿｽg�ｿｽp�ｿｽ�ｿｽ�ｿｽ�ｿｽ
+ *  Programmer  : �ｿｽ�ｿｽ�ｿｽl�ｿｽT�ｿｽX�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽﾌト�ｿｽ�ｿｽ�ｿｽ[�ｿｽj�ｿｽ�ｿｽ�ｿｽO�ｿｽZ�ｿｽ�ｿｽ�ｿｽ^�ｿｽ[
+ *  Note        : �ｿｽR�ｿｽ�ｿｽ�ｿｽp�ｿｽC�ｿｽ�ｿｽ�ｿｽI�ｿｽu�ｿｽW�ｿｽF�ｿｽN�ｿｽg�ｿｽI�ｿｽv�ｿｽV�ｿｽ�ｿｽ�ｿｽ�ｿｽ-nostuff�ｿｽw�ｿｽ�ｿｽ
+ *              : �ｿｽR�ｿｽ�ｿｽ�ｿｽp�ｿｽC�ｿｽ�ｿｽ�ｿｽI�ｿｽu�ｿｽW�ｿｽF�ｿｽN�ｿｽg�ｿｽI�ｿｽv�ｿｽV�ｿｽ�ｿｽ�ｿｽ�ｿｽ-section=L=C�ｿｽw�ｿｽ�ｿｽ
+ *              : �ｿｽR�ｿｽ�ｿｽ�ｿｽp�ｿｽC�ｿｽ�ｿｽ�ｿｽﾅ適�ｿｽ�ｿｽ�ｿｽI�ｿｽv�ｿｽV�ｿｽ�ｿｽ�ｿｽ�ｿｽ-noschedule�ｿｽw�ｿｽ�ｿｽ
+ *              : �ｿｽR�ｿｽ�ｿｽ�ｿｽp�ｿｽC�ｿｽ�ｿｽ�ｿｽﾅ適�ｿｽ�ｿｽ�ｿｽI�ｿｽv�ｿｽV�ｿｽ�ｿｽ�ｿｽ�ｿｽ-case=ifthen�ｿｽw�ｿｽ�ｿｽ
  **************************************************************************************************
  * Copyright (C) 2011(2012) Renesas Electronics Corporation
  *  and Renesas Solutions Corp. All rights reserved.
@@ -25,14 +25,26 @@
 /* Private Macro */
 #define NUM2ASCII(num)		((num)   + 0x30)
 #define ASCII2NUM(ascii)	((ascii) - 0x30)
+#define __PACKET_TIMEOUT		(2000)
+#define __CONNECTION_TIMEOUT	(1000)
+struct s_packet_buffer {
+	data_t buffer[2];
+	int16_t index;
+	int16_t flag;
+};
+typedef struct s_packet_buffer DATA_PacketBuffer_t;
+static DATA_PacketBuffer_t __PacketBuffer;
 
 /* Private Functions */
 static int32_t SERIAL_ProtocolAssemblePacket(uint8_t *buff, uint32_t buffersize,
 		const data_t *pdata) {
 	uint32_t length, type, i;
+	ASSERT( buff );
+	ASSERT( pdata );
 	length = pdata->length;
 	type = pdata->type;
 	ASSERT( length <= 10 );
+	ASSERT( type <= 99 );
 	if (buffersize >= (pdata->length + 6)) {
 		/* Assemble Packet */
 		*buff++ = SERIAL_PROTOCOL_START_CODE;
@@ -73,10 +85,17 @@ static int32_t SERIAL_ProtocolDisassemblePacket(const uint8_t *buff,
 	length += ASCII2NUM(buff[4]);
 
 	/* Check length */
+#ifndef GENERAL
+	if ( (type == 1 && length == 3) || (type == 0 && length == 6)) {
+
+	}else{
+		return ERROR_SERIAL_PACKET;
+	}
+#else
 	if (length > 10) {
 		return ERROR_SERIAL_PACKET;
 	}
-
+#endif
 	/* Check End code */
 	if (buff[length + 5] != SERIAL_PROTOCOL_END_CODE) {
 		return ERROR_SERIAL_PACKET;
@@ -86,8 +105,9 @@ static int32_t SERIAL_ProtocolDisassemblePacket(const uint8_t *buff,
 	buff += 5;
 	pdata->length = length;
 	pdata->type = type;
-	while (length--) {
+	while (length) {
 		pdata->data_ascii[pdata->length - length] = *buff++;
+		length--;
 	}
 	return ERROR_OK;
 }
@@ -104,22 +124,33 @@ int32_t SERIAL_ProtocolRecv(SERIAL_Protocol_t *this, data_t *buff,
 	int32_t ret = 0;
 	/* 1 Check input */
 	ASSERT(this);ASSERT(buff);
-	while (max_num--) {
-
-		/* 2 Call driver receiver to check if any packet received
-		 * 3 Disassemble packet with protocol format
-		 * 4 Copy to data_t *buff
-		 */
-		/* return receive packet number */
+	if(this->ERROR_State){
+		this->ERROR_State = 0;
+		return ERROR_SERIAL_FAIL;
+	}else{
+		while (max_num--) {
+			if( __PacketBuffer.flag & (1<<0) )
+			{
+				*buff++ = __PacketBuffer.buffer[0];
+				__PacketBuffer.flag &= ~(1<<0);
+				ret ++;
+			}else if(__PacketBuffer.flag & (1<<1)){
+				*buff++ = __PacketBuffer.buffer[1];
+				__PacketBuffer.flag &= ~(1<<1);
+				ret ++;
+			}
+			/* return receive packet number */
+		}
+		return ret;
 	}
-	return ret;
+
 }
 
 int32_t SERIAL_ProtocolSend(SERIAL_Protocol_t *this, const data_t *pdata,
 		uint32_t num) {
 	int32_t ret, i, size, packet_count = 0;
 	uint8_t *p;
-	ASSERT(buff);ASSERT(pdata);
+	ASSERT(this);ASSERT(pdata);
 	p = this->TXPacketBuffer;
 	size = SERIAL_PROTOCOL_TXBUFFERSIZE;
 	/* Assemble Packet */
@@ -158,6 +189,8 @@ static int32_t __SERIAL_ProtocolDropUntilChar(SERIAL_Protocol_t *this,
 		ret = SERIAL_DriverRecv(&this->Driver, &(temp), 1);
 		if (temp == char_expect) {
 			return ERROR_OK;
+		} else {
+			nop();
 		}
 	} while (ret > 0);
 	return ERROR_Empty;
@@ -169,75 +202,138 @@ static int32_t __SERIAL_ProtocolDropUntilChar(SERIAL_Protocol_t *this,
 static int32_t __SERIAL_ProtocolGetUntilChar(SERIAL_Protocol_t *this,
 		uint8_t char_expect, uint8_t *buff, uint8_t *num) {
 	int32_t ret;
-	ASSERT(this);
-	ASSERT(num);
-	ASSERT(buff);
+	ASSERT(this);ASSERT(num);ASSERT(buff);
 	*num = 0;
 	do {
 		ret = SERIAL_DriverRecv(&this->Driver, buff, 1);
+		ASSERT( ret <= 1 );
 		if (ret == 1) {
-			if (*buff == char_expect) {
+			(*num) += ret;
+			if ((*buff) == char_expect) {
 				return ERROR_OK;
 			}
-			buff++;
-			(*num)++;
+			buff += ret;
 		}
 	} while (ret > 0);
 	return ERROR_Empty;
 }
-
-static int32_t __CONNStateMaching(SERIAL_Protocol_t *this,
-		uint32_t event) {
-	int32_t ret = 0;
-	ASSERT(this);
-	if( this->CONN_State == SERIAL_STATE_CONNONLINE ){
-
-	}else if(this->CONN_State == SERIAL_STATE_CONNOFFLINE){
-
-	}else{
-		ASSERT(0);
-	}
-	return ret;
+/* Connection Machine:Actions */
+static void __ActionGoOnline(SERIAL_Protocol_t *this) {
+	this->CONN_State = SERIAL_STATE_CONNONLINE;
+	this->CONN_Timeout = 2000;
 }
 
-void SERIAL_ProtocolBackground(SERIAL_Protocol_t *this) {
-	int32_t ret;
+static void __ActionGoOffline(SERIAL_Protocol_t *this) {
+	this->CONN_State = SERIAL_STATE_CONNOFFLINE;
+}
 
+static void __StateActionOnline(SERIAL_Protocol_t *this) {
+	if (this->CONN_Timeout == 0) {
+		__ActionGoOffline(this);
+	}
+	this->CONN_Timeout--;
+}
+
+/* Packet State Machine:Actions */
+static void __ActionGoPacketRECV(SERIAL_Protocol_t *this) {
+	this->PACKET_Timeout = __PACKET_TIMEOUT;
+	this->PACKET_State = SERIAL_STATE_PACKETRECV;
+}
+static void __ActionGoPacketIDLE(SERIAL_Protocol_t *this) {
+	this->PACKET_State = SERIAL_STATE_PACKETIDLE;
+	this->TempRXBufferIndex = 0;
+	this->TempRXBuffer[0] = '\0';
+}
+static void __ActionEndCodeRecv(SERIAL_Protocol_t *this) {
+
+	int32_t ret;
+	data_t temp;
+	/* disassemble the packet and check packet format */
+	ret = SERIAL_ProtocolDisassemblePacket(this->TempRXBuffer, &temp);
+
+	/* if format is right put into buffer */
+	if (ret == ERROR_OK) {
+		{
+			__PacketBuffer.buffer[__PacketBuffer.index] = temp;
+			__PacketBuffer.flag |= (1<<__PacketBuffer.index);
+			__PacketBuffer.index ++;
+			__PacketBuffer.index &= 0x01;
+		}
+		__ActionGoOnline(this);
+	}else if(ret == ERROR_SERIAL_PACKET){
+		this->ERROR_State |= (1<<3);
+	}
+	__ActionGoPacketIDLE(this);
+}
+
+static void __ActionStartCodeRecv(SERIAL_Protocol_t *this) {
+	/* store start code */
+	this->TempRXBuffer[0] = SERIAL_PROTOCOL_START_CODE;
+	this->TempRXBufferIndex = 1;
+	__ActionGoPacketRECV(this);
+}
+
+static void __StateActionIDLE(SERIAL_Protocol_t *this) {
+	int32_t ret;
+	/* try to receive START_CODE*/
+	ret = __SERIAL_ProtocolDropUntilChar(this,
+	SERIAL_PROTOCOL_START_CODE);
+	/* start code received */
+	if (ret == ERROR_OK) {
+		__ActionStartCodeRecv(this);
+	} else {
+		/* No Start code found */
+	}
+}
+
+static void __StateActionRECV(SERIAL_Protocol_t *this) {
+	int32_t ret;
+	uint8_t num;
+	/* try to fetch received data from driver until end code */
+	num = 0;
+	ret = __SERIAL_ProtocolGetUntilChar(this, SERIAL_PROTOCOL_END_CODE,
+			&this->TempRXBuffer[this->TempRXBufferIndex], &num);
+	this->TempRXBufferIndex += num;
+	/* if no data received */
+	if (ret == ERROR_Empty) {
+		this->PACKET_Timeout--;
+	}
+	/* if end code received */
+	else if (ret == ERROR_OK) {
+		__ActionEndCodeRecv(this);
+	} else {
+		this->PACKET_Timeout = __PACKET_TIMEOUT;
+	}
+	/* timeout event */
+	if (this->PACKET_Timeout == 0) {
+		__ActionGoPacketIDLE(this);
+	}
+}
+void SERIAL_ProtocolBackground(SERIAL_Protocol_t *this) {
 	SERIAL_DriverBackground(&this->Driver);
 	/* Check UART hardware errors */
-	if (this->Driver.Error_State == 1) {
+	if (this->Driver.Error_State & 0x03) {
+		this->ERROR_State = this->Driver.Error_State;
 		this->Driver.Error_State = 0;
 		/* transfer the error_state to upper layer */
-		this->ERROR_State |= 1;
 	} else {
-		/* STATE IDLE */
+		/* Packet receive State machine*/
 		if (this->PACKET_State == SERIAL_STATE_PACKETIDLE) {
-
-			/* try to receive START_CODE*/
-			ret = __SERIAL_ProtocolDropUntilChar(this,
-			SERIAL_PROTOCOL_START_CODE);
-			if (ret == ERROR_OK) {
-				this->TempRXBuffer[0] = SERIAL_PROTOCOL_START_CODE;
-				this->TempRXBufferIndex = 1;
-				this->PACKET_State = SERIAL_STATE_PACKETRECV;
-			} else {
-				/* No Start code found */
-				nop();
-			}
+			/* STATE IDLE */
+			__StateActionIDLE(this);
 		}
-		/* STATE RECEIVING */
+
 		else if (this->PACKET_State == SERIAL_STATE_PACKETRECV) {
-			ret = __SERIAL_ProtocolGetUntilChar(this, SERIAL_PROTOCOL_END_CODE,
-					&this->TempRXBuffer[this->TempRXBufferIndex]);
-			if( ret == ERROR_Empty ){
+			/* STATE RECEIVING */
+			__StateActionRECV(this);
+		}
 
-			}else{
-
-			}
+		/* Connection State machine*/
+		if (this->CONN_State == SERIAL_STATE_CONNONLINE) {
+			/* STATE ONLINE */
+			__StateActionOnline(this);
 		}
 	}
-	this->CONN_State = SERIAL_STATE_CONNOFFLINE;
-	this->CONN_State = SERIAL_STATE_CONNONLINE;
 }
 
 state_t SERIAL_ProtocolGetConnectionState(SERIAL_Protocol_t *this) {

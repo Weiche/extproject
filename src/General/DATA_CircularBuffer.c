@@ -62,7 +62,6 @@ int32_t DATA_CircularBufferGet(DATA_CircularBuffer_t *p, BUFFER_DATA_TYPE *pc) {
 
 int32_t DATA_CircularBufferFlush(DATA_CircularBuffer_t *p) {
 	ASSERT( p );
-	ASSERT( pc );
 
 	__DINT();
 	p->pRead = p->pWrite = p->buffer;

@@ -41,6 +41,7 @@ extern void HardwareSetup(void);
 
 void HardwareSetup(void)
 {
+	SYSTEM.SCKCR.LONG = 0x03020300;
 /*
  BSC.CS0MOD.WORD = 0x1234;
  BSC.CS7CNT.WORD = 0x5678;
