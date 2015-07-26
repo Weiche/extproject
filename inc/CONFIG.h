@@ -16,7 +16,6 @@
  * FUNCTIONS
  *******************************/
 #define USE_ASSERT				(0)
-#define USE_BENCHMARK				(1)
 
 /*******************************
  * LCD
@@ -43,12 +42,12 @@
 
 /* SERIAL Driver */
 #define SERIAL_DRIVER_RXTIMEOUT (10000)
-#define SERIAL_RX_BUFFERSIZE	(128)
+#define SERIAL_RX_BUFFERSIZE	(32)
 /* SERIAL PROTOCOL */
 #define SERIAL_PROTOCOL_START_CODE		('^')
 #define SERIAL_PROTOCOL_END_CODE		('$')
 #define SERIAL_PROTOCOL_MAXPACKETLEN	(10)
-#define SERIAL_PROTOCOL_TXBUFFERSIZE	(128)
+#define SERIAL_PROTOCOL_TXBUFFERSIZE	(32)
 
 /*******************************
  * VIEW
@@ -70,7 +69,7 @@
  *******************************/
 #define ADC_RESOLUTION_BIT		(10)
 #define ADC_VOLTAGE_REF			(3.3)
-#define ADC_OVERSAMPLING  		(4)
+#define ADC_OVERSAMPLING  		(10)
 
 /*******************************
  * CHECK

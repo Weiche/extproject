@@ -32,14 +32,42 @@ void ADC_DriverSoftStart(void) {
  * @example		4.343V => return 4343
  * @todo		ADC_DriverGetVoltage(void) body
  *********************************************************************************************************/
-int32_t ADC_DriverGetVoltage(void) {
-	//TODO Optimize
-	int32_t ret;
-	ret = ADC_HALGetRaw();
-	if (ret < 0) {
-		return ERROR_ADC_FAIL;
-	} else {
-		return (ret * ADC_HALGetRefVoltage() ) / (ADC_HALGetMaxRawValue() - 1);
-	}
-}
+#if (ADC_OVERSAMPLING <= 1)
+ int32_t ADC_DriverGetVoltage(void) {
+ //TODO Optimize
+ int32_t ret;
+ ret = ADC_HALGetRaw();
+ if (ret < 0) {
+ return ERROR_ADC_FAIL;
+ } else {
+ return (ret * ADC_HALGetRefVoltage() ) / (ADC_HALGetMaxRawValue() - 1);
+ }
+ }
+#else
+ int32_t ADC_DriverGetVoltage(void) {
+ 	//TODO Optimize
+ 	int32_t ret;
 
+ 	static uint32_t ad[ADC_OVERSAMPLING];
+ 	static uint32_t fix_ad;
+ 	static uint8_t i;
+ 	static uint32_t cnt = 0;
+ 	ret = ADC_HALGetRaw();
+ 	if (ret < 0) {
+ 		return ERROR_ADC_FAIL;
+ 	}
+ 	ad[cnt] = ret;
+	if (ADC_OVERSAMPLING <= ++cnt){
+ 	  cnt=0;
+ 	  fix_ad=0;
+ 	  for(i=0;i<ADC_OVERSAMPLING;i++){
+ 	  fix_ad += ad[i];
+ 	  }
+
+ 	  fix_ad/=ADC_OVERSAMPLING;
+ 	  ret=fix_ad;
+
+ 	  }
+ 	return (ret * ADC_HALGetRefVoltage() ) / (ADC_HALGetMaxRawValue() - 1);
+ }
+#endif

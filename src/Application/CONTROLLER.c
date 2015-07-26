@@ -11,13 +11,8 @@
 #include "SERIAL_Protocol.h"
 
 #include "CONTROLLER.h"
-#if 1
-#define TOGGLE_P15()	PORT1.DR.BIT.B5 ^= 1
-#else
-#define TOGGLE_P15()
-#endif
 
-#define YIELD(flag)	TOGGLE_P15();(flag) = __LINE__;break;case __LINE__:
+#define YIELD(flag)	(flag) = __LINE__;break;case __LINE__:
 #define START(flag)	switch(flag){case 1:
 #define END(flag)	(flag) = 0;}
 
@@ -117,15 +112,18 @@ void CONTROLLER_MainLoop(void) {
 	static int32_t adv;
 
 	/* Executed Every Loop */
-	PORT1.DR.BIT.B5 = 1;
+
 	SERIAL_ProtocolBackground(&Serial);
-	PORT1.DR.BIT.B5 = 0;
+
 
 	if ( SYSTEM_GetFlagLCD() == 1) {
 		SYSTEM_ClrFlagLCD();
 		VIEW_Refresh();
 	}
-
+	if( Serial.Packet_BufferNotEmpty == 1 ){
+			Serial.Packet_BufferNotEmpty = 0;
+			return;
+	}
 	START(FLAG_10ms)
 	TIMER_DriverCount(&TIMER_OneHour);
 	ADC_DriverSoftStart();
@@ -140,9 +138,7 @@ void CONTROLLER_MainLoop(void) {
 	__SelfData();
 
 	YIELD(FLAG_10ms)
-	PORT1.DR.BIT.B5 = 1;
 	SERIAL_ProtocolSend(&Serial, &packet_tx[0], 2);
-	PORT1.DR.BIT.B5 = 0;
 
 	YIELD(FLAG_10ms)
 	ret = SERIAL_ProtocolRecv(&Serial, packet, 2);
@@ -162,33 +158,33 @@ void CONTROLLER_MainLoop(void) {
 }
 
 static void VTC_Voltage2Char(uint32_t voltage, VIEW_ascii_t *p_View) {
-p_View->adc[0] = (uint8_t) (voltage / 1000 + 0x30);
-p_View->adc[1] = (uint8_t) (voltage / 100 % 10 + 0x30);
-p_View->adc[2] = (uint8_t) (voltage / 10 % 10 + 0x30);
+	p_View->adc[0] = (uint8_t) (voltage / 1000 + 0x30);
+	p_View->adc[1] = (uint8_t) (voltage / 100 % 10 + 0x30);
+	p_View->adc[2] = (uint8_t) (voltage / 10 % 10 + 0x30);
 
 }
 
 static void TTC_Timer2Char(const TIMER_t *time, VIEW_ascii_t *p_View) {
 
-p_View->min[0] = (uint8_t) (time->min / 10 + 0x30);
-p_View->min[1] = (uint8_t) (time->min % 10 + 0x30);
+	p_View->min[0] = (uint8_t) (time->min / 10 + 0x30);
+	p_View->min[1] = (uint8_t) (time->min % 10 + 0x30);
 
-p_View->sec[0] = (uint8_t) (time->sec / 10 + 0x30);
-p_View->sec[1] = (uint8_t) (time->sec % 10 + 0x30);
+	p_View->sec[0] = (uint8_t) (time->sec / 10 + 0x30);
+	p_View->sec[1] = (uint8_t) (time->sec % 10 + 0x30);
 
-p_View->sec100[0] = (uint8_t) (time->sec_100 / 10 + 0x30);
-p_View->sec100[1] = (uint8_t) (time->sec_100 % 10 + 0x30);
+	p_View->sec100[0] = (uint8_t) (time->sec_100 / 10 + 0x30);
+	p_View->sec100[1] = (uint8_t) (time->sec_100 % 10 + 0x30);
 
 }
 
 void KEYMATRIX_Callback(uint32_t code) {
 
-if (code == 0x1000) {
-	TIMER_DriverToggle(&TIMER_OneHour);
-}
-if (code == 0x0100 && TIMER_OneHour.state == 0) {
-	TIMER_DriverReset(&TIMER_OneHour);
-}
+	if (code == 0x1000) {
+		TIMER_DriverToggle(&TIMER_OneHour);
+	}
+	if (code == 0x0100 && TIMER_OneHour.state == 0) {
+		TIMER_DriverReset(&TIMER_OneHour);
+	}
 }
 
 /** End of file */

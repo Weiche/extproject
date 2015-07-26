@@ -63,7 +63,7 @@ static void SERIAL_HALSCIInit(uint32_t baud) {
 	SCI6.SMR.BIT.PE = 0; /* パリティなし, 1ストップビット */
 	SCI6.SEMR.BIT.ABCS = 1; /* 転送クロック = PCLK */
 	SCI6.SMR.BIT.CKS = 0;
-	SCI6.BRR = (uint16_t) ( SYS_PCLK / ((float) baud * 8.0F * 2.0F) - 1.0F); /* 転送速度の設定 */
+	SCI6.BRR = (uint16_t) ( SYS_PCLK / ((float) baud * 8.0F * 2.0F) ); /* 転送速度の設定 */
 	/***** SCI6関連の割り込みの初期化 *****/
 	IR( SCI6, RXI6 )= 0;
 	IR( SCI6, TXI6 )= 0;

@@ -36,7 +36,8 @@ static void VIEW_RenderError(const char *p) {
 	LCD_DriverBufferWrite( VIEW_OFFSET_ERROR + 3, 'o');
 	LCD_DriverBufferWrite( VIEW_OFFSET_ERROR + 4, 'r');
 }
-/******By WEI*/
+
+#if (USE_ADCBAR_EXT==0)
 static void VIEW_RenderADCBar(const VIEW_ascii_t *p) {
 	static uint32_t adc;
 	static const uint8_t table[7][6] = {
@@ -57,42 +58,13 @@ static void VIEW_RenderADCBar(const VIEW_ascii_t *p) {
 	adc += (p->adc[1] - 0x30) * 10;
 	adc += (p->adc[2] - 0x30) * 1;
 
-	adc = adc / ( 330 / 7 );
-	if (adc > 6) {
-		adc = 6;
-	}
+	//adc = adc / ( 330 / 7 );
+	adc /= 50;
+	adc = adc > 6 ? 6:adc;
+
 	LCD_DriverBufferWriten(VIEW_OFFSET_BAR , table[adc], 6 );
 }
 
-/******/
-#if (USE_ADCBAR_EXT==0)
-static void VIEW_RenderADCBar1(const VIEW_ascii_t *p) {
-	static const uint8_t table[2] = { 0x20, 0xFF };
-	int32_t i, adc, adc_disp;
-
-	ASSERT(p != 0);
-
-	/* render adc bar */
-	adc = 0;
-	adc += (p->adc[0] - 0x30) * 100;
-	adc += (p->adc[1] - 0x30) * 10;
-	adc += (p->adc[2] - 0x30) * 1;
-
-	if (adc >= 330) {
-		adc = 330;
-	}
-	adc_disp = adc / (330 / 33);
-	i = 0;
-	while (adc_disp >= 5) {
-		LCD_DriverBufferWrite( VIEW_OFFSET_BAR + i, table[1]);
-		adc_disp -= 5;
-		i++;
-	}
-	while (i < 6) {
-		LCD_DriverBufferWrite( VIEW_OFFSET_BAR + i, table[0]);
-		i++;
-	}
-}
 #else
 static void VIEW_RenderADCBar(const VIEW_ascii_t *p) {
 	static const uint8_t table[] = {0x20, 0x01, 0x02, 0x03, 0x04, 0xFF};

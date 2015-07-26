@@ -34,6 +34,7 @@ struct s_SERIAL_protocol {
 	int32_t CONN_State;
 	int32_t PACKET_State;
 	int32_t ERROR_State;
+	int32_t Packet_BufferNotEmpty;
 	uint32_t PACKET_Timeout;
 	uint32_t CONN_Timeout;
 	uint8_t TXPacketBuffer[SERIAL_PROTOCOL_TXBUFFERSIZE];

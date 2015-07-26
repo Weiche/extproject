@@ -7,6 +7,7 @@
 #define ASCII2NUM(ascii)	((ascii) - 0x30)
 #define __PACKET_TIMEOUT		(2000)
 #define __CONNECTION_TIMEOUT	(1000)
+#define GENERAL
 struct s_packet_buffer {
 	data_t buffer[2];
 	int16_t index;
@@ -94,6 +95,7 @@ static int32_t SERIAL_ProtocolDisassemblePacket(const uint8_t *buff,
 /* Public Functions */
 void SERIAL_ProtocolInit(SERIAL_Protocol_t *this) {
 	SERIAL_DriverInit(&this->Driver);
+	this->Packet_BufferNotEmpty = 0;
 }
 void SERIAL_ProtocolReset(SERIAL_Protocol_t *this) {
 	SERIAL_DriverReset(&this->Driver);
@@ -228,6 +230,7 @@ static void __ActionEndCodeRecv(SERIAL_Protocol_t *this) {
 
 	int32_t ret;
 	data_t temp;
+	this->Packet_BufferNotEmpty = 1;
 	/* disassemble the packet and check packet format */
 	ret = SERIAL_ProtocolDisassemblePacket(this->TempRXBuffer, &temp);
 
